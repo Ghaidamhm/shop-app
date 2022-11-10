@@ -1,0 +1,159 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ushop_app/utils/my_string.dart';
+import 'package:ushop_app/utils/theme.dart';
+import 'package:ushop_app/view/widgets/auth/auth_button.dart';
+import 'package:ushop_app/view/widgets/auth/auth_text_form_field.dart';
+import 'package:ushop_app/view/widgets/auth/container_under.dart';
+import 'package:ushop_app/view/widgets/text_utiles.dart';
+
+import '../../widgets/auth/check_widget.dart';
+
+class SignUpScreen extends StatelessWidget {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  SignUpScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+        elevation: 0,
+      ),
+      backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height / 1.3,
+            child: Padding(
+              padding: EdgeInsets.only(left: 25, right: 25, top: 40),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        TextUtiles(
+                            text: "SIGN",
+                            fontSize: 28,
+                            fontWeight: FontWeight.w500,
+                            color: mainColor,
+                            underline: TextDecoration.none),
+                        SizedBox(
+                          width: 3,
+                        ),
+                        TextUtiles(
+                            text: "UP",
+                            fontSize: 28,
+                            fontWeight: FontWeight.w500,
+                            color: Get.isDarkMode ? Colors.black : Colors.white,
+                            underline: TextDecoration.none),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    AuthTextFormField(
+                      controller: nameController,
+                      obscureText: false,
+
+// userName validation
+                      validator: (value) {
+                        if (value.toString().length <= 2 ||
+                            !RegExp(validationName).hasMatch(value)) {
+                          return 'Enter valid name';
+                        } else {
+                          return null;
+                        }
+                      },
+
+                      prefixIcon: Get.isDarkMode
+                          ? Image.asset('assets/images/user.png')
+                          : Icon(
+                              Icons.person,
+                              color: Colors.black,
+                              size: 30,
+                            ),
+                      suffix: Text(''),
+                      hintText: 'User Name',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+  // Email validation
+                    AuthTextFormField(
+                      controller: emailController,
+                      obscureText: false,
+                      validator: (value) {
+                        if (!RegExp(validationEmail).hasMatch(value)) {
+                          return 'Invalid Email';
+                        } else {
+                          return null;
+                        }
+                      },
+                      prefixIcon: Get.isDarkMode
+                          ? Image.asset('assets/images/email.png')
+                          : Icon(
+                              Icons.email,
+                              color: Colors.black,
+                            ),
+                      suffix: Text(''),
+                      hintText: 'Email',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    AuthTextFormField(
+                      controller: passwordController,
+                      obscureText: true,
+                      validator: (value) {
+                        if(value.toString().length<6){
+                          return 'Password should be longer or equal to 6 characters';
+                        }else {
+                          return null;
+                        }
+                      },
+                      prefixIcon: Get.isDarkMode
+                          ? Image.asset('assets/images/lock.png')
+                          : Icon(
+                              Icons.lock,
+                              color: Colors.black,
+                            ),
+                      suffix: Text(''),
+                      hintText: 'Password',
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    CheckWidget(),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    AuthButton(
+                      text: 'Sign Up',
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          ContainerUnder(
+            text: 'Already have an Account ?',
+            onPressed: () {},
+            textType: 'Log in',
+          ),
+        ],
+      )),
+    ));
+  }
+}

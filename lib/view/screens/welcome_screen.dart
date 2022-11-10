@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ushop_app/routes/routes.dart';
 import 'package:ushop_app/utils/theme.dart';
+import 'package:ushop_app/view/screens/auth/login_screen.dart';
+import 'package:ushop_app/view/screens/auth/signup_screen.dart';
 import 'package:ushop_app/view/widgets/text_utiles.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -29,8 +33,6 @@ class WelcomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 100,
                 ),
-
-
                 Container(
                   height: 60,
                   width: 190,
@@ -41,16 +43,15 @@ class WelcomeScreen extends StatelessWidget {
                     child: TextUtiles(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      text: 'welcome',
-                      color: Colors.white, underline: TextDecoration.underline,
+                      text: 'Welcome',
+                      color: Colors.white,
+                      underline: TextDecoration.none,
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-
-
                 Container(
                   height: 60,
                   width: 230,
@@ -64,7 +65,8 @@ class WelcomeScreen extends StatelessWidget {
                         text: 'Asroo',
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
-                        color: mainColor, underline: TextDecoration.underline,
+                        color: mainColor,
+                        underline: TextDecoration.none,
                       ),
                       const SizedBox(
                         width: 7,
@@ -73,7 +75,8 @@ class WelcomeScreen extends StatelessWidget {
                         text: 'Shop',
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, underline:TextDecoration.underline,
+                        color: Colors.white,
+                        underline: TextDecoration.none,
                       ),
                     ],
                   ),
@@ -81,8 +84,6 @@ class WelcomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 250,
                 ),
-
-                
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       primary: mainColor,
@@ -93,32 +94,40 @@ class WelcomeScreen extends StatelessWidget {
                         horizontal: 40,
                         vertical: 12,
                       )),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.offNamed(Routes.LoginScreen);
+                  },
                   child: TextUtiles(
-                      text: 'Get Start',
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white, underline: TextDecoration.underline,),
+                    text: 'Get Start',
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    underline: TextDecoration.none,
+                  ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextUtiles(
-                        text: "Don't have an Account? ",
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white, underline: TextDecoration.underline,),
+                      text: "Don't have an Account? ",
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                      underline: TextDecoration.none,
+                    ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.offNamed(Routes.SignUpScreen);
+                      },
                       child: TextUtiles(
                         text: 'Sign Up',
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
-                        color: Colors.white, underline: TextDecoration.underline,
+                        color: Colors.white,
+                        underline: TextDecoration.underline,
                       ),
                     )
                   ],

@@ -22,7 +22,7 @@ class TextUtiles extends StatelessWidget {
       text,
       style: GoogleFonts.lato(
         textStyle: TextStyle(
-            decoration: TextDecoration.underline,
+            decoration: underline,
             color: color,
             fontSize: fontSize,
             fontWeight: fontWeight),
