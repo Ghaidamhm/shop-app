@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ushop_app/routes/routes.dart';
@@ -10,12 +10,11 @@ import 'package:ushop_app/view/widgets/auth/auth_button.dart';
 import 'package:ushop_app/view/widgets/auth/auth_text_form_field.dart';
 import 'package:ushop_app/view/widgets/auth/container_under.dart';
 import 'package:ushop_app/view/widgets/text_utiles.dart';
-
 import '../../widgets/auth/check_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
-
+FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -165,7 +164,24 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     AuthButton(
                       text: 'Sign Up',
-                      onPressed: () {},
+                      onPressed: () async {
+try {
+  final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: "barry.allen@example.com",
+    password: "SuperSecretPassword!"
+  );
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+    print('The password provided is too weak.');
+  } else if (e.code == 'email-already-in-use') {
+    print('The account already exists for that email.');
+  }
+} catch (e) {
+  print(e);
+}
+                        
+                       
+                      },
                     ),
                   ],
                 ),
@@ -178,7 +194,6 @@ class SignUpScreen extends StatelessWidget {
             onPressed: () {
               Get.offNamed(Routes.LoginScreen);
             },
-            
           ),
         ],
       )),

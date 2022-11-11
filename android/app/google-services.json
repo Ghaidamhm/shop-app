@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "982331460261",
+    "project_id": "shop-app-getex",
+    "storage_bucket": "shop-app-getex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982331460261:android:59881947348018addb9b4c",
+        "android_client_info": {
+          "package_name": "com.example.ushop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982331460261-4cfgsvdk6oa445f2l18f5g2t1c9vvqh4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAoNLJf8apjMKQfDSl1OhHAGbCIcop26Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982331460261-4cfgsvdk6oa445f2l18f5g2t1c9vvqh4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

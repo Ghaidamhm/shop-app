@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 import 'package:ushop_app/logic/bindings/auth_bindings.dart';
 import 'package:ushop_app/view/screens/auth/forgot_password_screen.dart';
