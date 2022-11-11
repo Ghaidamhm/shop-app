@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ushop_app/routes/routes.dart';
+import '../../../logic/controllers/auth_controller.dart';
 import 'package:ushop_app/utils/my_string.dart';
 import 'package:ushop_app/utils/theme.dart';
 import 'package:ushop_app/view/widgets/auth/auth_button.dart';
@@ -12,10 +14,18 @@ import 'package:ushop_app/view/widgets/text_utiles.dart';
 import '../../widgets/auth/check_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
+  final formKey = GlobalKey<FormState>();
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+
+  // find the controller
+  final controller = Get.find<AuthController>();
+// Give me the controller I made يشغل لي الكنترولر اول ما ادخل ع الصفحه
+  // final controller = Get.put(AuthController());
+// هنا يشغل لي الكنترولر اذا انا طلبته
+  // final controllers = Get.lazyPut((() => AuthController()));
 
   SignUpScreen({super.key});
 
@@ -31,7 +41,7 @@ class SignUpScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 1.3,
             child: Padding(
@@ -86,10 +96,10 @@ class SignUpScreen extends StatelessWidget {
                       suffix: Text(''),
                       hintText: 'User Name',
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-  // Email validation
+                    // Email validation
                     AuthTextFormField(
                       controller: emailController,
                       obscureText: false,
@@ -109,28 +119,43 @@ class SignUpScreen extends StatelessWidget {
                       suffix: Text(''),
                       hintText: 'Email',
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    AuthTextFormField(
-                      controller: passwordController,
-                      obscureText: true,
-                      validator: (value) {
-                        if(value.toString().length<6){
-                          return 'Password should be longer or equal to 6 characters';
-                        }else {
-                          return null;
-                        }
-                      },
-                      prefixIcon: Get.isDarkMode
-                          ? Image.asset('assets/images/lock.png')
-                          : Icon(
-                              Icons.lock,
-                              color: Colors.black,
-                            ),
-                      suffix: Text(''),
-                      hintText: 'Password',
-                    ),
+                    GetBuilder<AuthController>(builder: (_) {
+                      return AuthTextFormField(
+                        controller: passwordController,
+                        obscureText: controller.isVisibility ? false : true,
+                        validator: (value) {
+                          if (value.toString().length < 6) {
+                            return 'Password should be longer or equal to 6 characters';
+                          } else {
+                            return null;
+                          }
+                        },
+                        prefixIcon: Get.isDarkMode
+                            ? Image.asset('assets/images/lock.png')
+                            : Icon(
+                                Icons.lock,
+                                color: Colors.black,
+                              ),
+                        hintText: 'Password',
+                        suffix: IconButton(
+                          onPressed: () {
+                            controller.visibility();
+                          },
+                          icon: controller.isVisibility
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.black,
+                                ),
+                        ),
+                      );
+                    }),
                     SizedBox(
                       height: 50,
                     ),
@@ -149,8 +174,11 @@ class SignUpScreen extends StatelessWidget {
           ),
           ContainerUnder(
             text: 'Already have an Account ?',
-            onPressed: () {},
             textType: 'Log in',
+            onPressed: () {
+              Get.offNamed(Routes.LoginScreen);
+            },
+            
           ),
         ],
       )),

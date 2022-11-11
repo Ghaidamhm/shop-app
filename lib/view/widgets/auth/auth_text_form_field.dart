@@ -7,7 +7,7 @@ class AuthTextFormField extends StatelessWidget {
   final bool obscureText;
   final Function validator;
   final prefixIcon;
-  final suffix;
+  final Widget suffix;
   final hintText;
   AuthTextFormField({
     super.key,
@@ -15,7 +15,7 @@ class AuthTextFormField extends StatelessWidget {
     required this.obscureText,
     required this.validator,
     this.prefixIcon,
-    this.suffix,
+    required this.suffix,
     this.hintText,
   });
 

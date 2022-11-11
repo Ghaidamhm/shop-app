@@ -2,47 +2,54 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ushop_app/logic/controllers/auth_controller.dart';
 import 'package:ushop_app/view/widgets/text_utiles.dart';
 
 class CheckWidget extends StatelessWidget {
-  const CheckWidget({super.key});
+  CheckWidget({super.key});
+
+  final controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        InkWell(
-          onTap: () {},
-          child: Container(
-            height: 35,
-            width: 35,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(10),
+    return GetBuilder<AuthController>(builder: (_) {
+      return Row(
+        children: [
+          InkWell(
+            onTap: () {
+              controller.checkBox();
+            },
+            child: Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: controller.isCheckBox
+                  ? Image.asset('assets/images/check.png')
+                  : Container(),
             ),
-            child: Image.asset('assets/images/check.png'),
           ),
-        ),
-        Row(
-          children: [
-            TextUtiles(
-                text: '  I accept ',
+          Row(
+            children: [
+              TextUtiles(
+                  text: '  I accept ',
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Get.isDarkMode ? Colors.black : Colors.white,
+                  underline: TextDecoration.none),
+              TextUtiles(
+                text: 'terms & conditions',
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
-                color: Get.isDarkMode? Colors.black : Colors.white,
-                underline: TextDecoration.none),
-            TextUtiles(
-              text: 'terms & conditions',
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-                color: Get.isDarkMode? Colors.black : Colors.white,
-              underline: TextDecoration.underline,
-            )
-          ],
-        )
-      
-      
-      ],
-    );
+                color: Get.isDarkMode ? Colors.black : Colors.white,
+                underline: TextDecoration.underline,
+              )
+            ],
+          )
+        ],
+      );
+    });
   }
 }
