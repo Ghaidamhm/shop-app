@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ushop_app/logic/controllers/auth_controller.dart';
 import 'package:ushop_app/utils/my_string.dart';
 import 'package:ushop_app/utils/theme.dart';
 import 'package:ushop_app/view/widgets/auth/auth_button.dart';
@@ -13,6 +14,8 @@ class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
   final formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
+
+  final controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +99,14 @@ class ForgetPasswordScreen extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              AuthButton(text: 'SEND', onPressed: () {})
+              GetBuilder<AuthController>(builder: (_) {
+                return AuthButton(text: 'SEND', onPressed: () {
+                  if(formKey.currentState!.validate()){
+                    String email=emailController.text.trim();
+                    controller.resetPassword(email);
+                  }
+                });
+              })
             ]),
           )),
         ),

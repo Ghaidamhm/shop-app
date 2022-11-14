@@ -14,7 +14,7 @@ import '../../widgets/auth/check_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
-FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -162,27 +162,29 @@ FirebaseAuth auth = FirebaseAuth.instance;
                     SizedBox(
                       height: 50,
                     ),
-                    AuthButton(
-                      text: 'Sign Up',
-                      onPressed: () async {
-try {
-  final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-    email: "barry.allen@example.com",
-    password: "SuperSecretPassword!"
-  );
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'weak-password') {
-    print('The password provided is too weak.');
-  } else if (e.code == 'email-already-in-use') {
-    print('The account already exists for that email.');
-  }
-} catch (e) {
-  print(e);
-}
-                        
-                       
-                      },
-                    ),
+
+                    GetBuilder<AuthController>(builder: (_) {
+                      return AuthButton(
+                        text: 'Sign Up',
+                        onPressed: () {
+                          if (controller.isCheckBox == false) {
+                            Get.snackbar(
+                                'Check Box', 'Please ,Accept terms & condition',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white);
+                          }
+                        else  if (formKey.currentState!.validate()) {
+                            String name = nameController.text.trim();
+                            String email = emailController.text.trim();
+                            String password = passwordController.text;
+                            controller.signUpUsingFirebase(
+                                name: name, email: email, password: password);
+                          } 
+                          controller.isCheckBox=true;
+                        },
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -196,7 +198,8 @@ try {
             },
           ),
         ],
-      )),
+      )
+      ),
     ));
   }
 }

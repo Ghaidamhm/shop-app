@@ -5,6 +5,7 @@ import 'package:ushop_app/logic/bindings/auth_bindings.dart';
 import 'package:ushop_app/view/screens/auth/forgot_password_screen.dart';
 import 'package:ushop_app/view/screens/auth/login_screen.dart';
 import 'package:ushop_app/view/screens/auth/signup_screen.dart';
+import 'package:ushop_app/view/screens/main_screen.dart';
 import 'package:ushop_app/view/screens/welcome_screen.dart';
 
 class AppRoutes {
@@ -30,6 +31,11 @@ class AppRoutes {
         name: Routes.ForgetPasswordScreen,
         page: () => ForgetPasswordScreen(),
         binding: AuthBinding()),
+
+          GetPage(
+        name: Routes.mainScreen,
+        page: () => MainScreen(),
+        binding: AuthBinding()),
   ];
 }
 
@@ -39,4 +45,6 @@ class Routes {
   static const LoginScreen = '/LoginScreen';
   static const SignUpScreen = '/SignUpScreen';
   static const ForgetPasswordScreen = '/ForgetPasswordScreen';
+    static const mainScreen = '/mainScreen';
+
 }

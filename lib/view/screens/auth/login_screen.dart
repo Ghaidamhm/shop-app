@@ -143,11 +143,19 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       height: 50,
                     ),
-
-                    AuthButton(
-                      text: 'LOG IN',
-                      onPressed: () {},
-                    ),
+                    GetBuilder<AuthController>(builder: (_) {
+                      return AuthButton(
+                        text: 'LOG IN',
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            String email = emailController.text.trim();
+                            String password = passwordController.text;
+                            controller.loginUsingFirebase(
+                                email: email, password: password);
+                          }
+                        },
+                      );
+                    }),
 
                     SizedBox(
                       height: 20,
@@ -176,11 +184,15 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        InkWell(
-                            onTap: () {},
-                            child: Image.asset(
-                              'assets/images/google.png',
-                            )),
+                        GetBuilder<AuthController>(builder: (_) {
+                          return InkWell(
+                              onTap: () {
+                                controller.googleSignUpApp();
+                              },
+                              child: Image.asset(
+                                'assets/images/google.png',
+                              ));
+                        })
                       ],
                     )
                   ],
