@@ -21,13 +21,16 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: context.theme.backgroundColor,
+
+
         appBar: AppBar(
-          backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+          backgroundColor: Get.isDarkMode ?darkGreyClr :  Colors.white,
           centerTitle: true,
           elevation: 0,
           title: Text(
             'Forget Password',
-            style: TextStyle(color: Get.isDarkMode ? mainColor : mainColor),
+            style: TextStyle(color: Get.isDarkMode ? Colors.white : mainColor),
           ),
           leading: IconButton(
             onPressed: () {
@@ -35,11 +38,10 @@ class ForgetPasswordScreen extends StatelessWidget {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Get.isDarkMode ? Colors.black : Colors.white,
+              color: Get.isDarkMode ? Colors.white : Colors.black,
             ),
           ),
         ),
-        backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
         body: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -64,7 +66,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               Text(
                 "If you want to recover your account,then please provide your email ID below ..",
                 style: TextStyle(
-                    color: Get.isDarkMode ? Colors.black : Colors.white),
+                    color: Get.isDarkMode ? Colors.white : Colors.black ),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
@@ -100,12 +102,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                 height: 50,
               ),
               GetBuilder<AuthController>(builder: (_) {
-                return AuthButton(text: 'SEND', onPressed: () {
-                  if(formKey.currentState!.validate()){
-                    String email=emailController.text.trim();
-                    controller.resetPassword(email);
-                  }
-                });
+                return AuthButton(
+                    text: 'SEND',
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        String email = emailController.text.trim();
+                        controller.resetPassword(email);
+                      }
+                    });
               })
             ]),
           )),

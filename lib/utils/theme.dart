@@ -13,7 +13,7 @@ const Color accountSettings = Color(0xff73bc65);
 const Color logOutSettings = Color(0xff5f95ef);
 const Color notiSettings = Color(0xffdf5862);
 const Color languageSettings = Color(0xffCB256C);
-
+// constant colors for dark and light mode
 class ThemesApp {
   static final light = ThemeData(
     primaryColor: mainColor,
@@ -22,7 +22,7 @@ class ThemesApp {
   );
 
   static final dark = ThemeData(
-    primaryColor: darkGreyClr,
+    primaryColor: mainColor,
     backgroundColor: darkGreyClr,
     brightness: Brightness.dark,
   );

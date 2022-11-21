@@ -32,11 +32,13 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      backgroundColor: context.theme.backgroundColor,
+
+
       appBar: AppBar(
-        backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+        backgroundColor: Get.isDarkMode ? darkGreyClr:  Colors.white ,
         elevation: 0,
       ),
-      backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -64,7 +66,8 @@ class SignUpScreen extends StatelessWidget {
                             text: "UP",
                             fontSize: 28,
                             fontWeight: FontWeight.w500,
-                            color: Get.isDarkMode ? Colors.black : Colors.white,
+
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
                             underline: TextDecoration.none),
                       ],
                     ),
@@ -173,15 +176,14 @@ class SignUpScreen extends StatelessWidget {
                                 snackPosition: SnackPosition.BOTTOM,
                                 backgroundColor: Colors.green,
                                 colorText: Colors.white);
-                          }
-                        else  if (formKey.currentState!.validate()) {
+                          } else if (formKey.currentState!.validate()) {
                             String name = nameController.text.trim();
                             String email = emailController.text.trim();
                             String password = passwordController.text;
                             controller.signUpUsingFirebase(
                                 name: name, email: email, password: password);
-                          } 
-                          controller.isCheckBox=true;
+                          }
+                          controller.isCheckBox = true;
                         },
                       );
                     }),
@@ -198,8 +200,7 @@ class SignUpScreen extends StatelessWidget {
             },
           ),
         ],
-      )
-      ),
+      )),
     ));
   }
 }

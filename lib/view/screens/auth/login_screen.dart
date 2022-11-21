@@ -23,11 +23,11 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: context.theme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+        backgroundColor: Get.isDarkMode ? darkGreyClr :Colors.white ,
         elevation: 0,
       ),
-      backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                             text: "IN",
                             fontSize: 28,
                             fontWeight: FontWeight.w500,
-                            color: Get.isDarkMode ? Colors.black : Colors.white,
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
                             underline: TextDecoration.none),
                       ],
                     ),
@@ -134,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                           child: TextUtiles(
                             text: 'Forget Password?',
                             fontSize: 14,
-                            color: Get.isDarkMode ? Colors.black : Colors.white,
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
                             fontWeight: FontWeight.normal,
                             underline: TextDecoration.none,
                           )),
@@ -164,7 +164,7 @@ class LoginScreen extends StatelessWidget {
                     TextUtiles(
                       text: 'OR',
                       fontSize: 14,
-                      color: Get.isDarkMode ? Colors.black : Colors.white,
+                      color: Get.isDarkMode ? Colors.white : Colors.black,
                       fontWeight: FontWeight.normal,
                       underline: TextDecoration.none,
                     ),
