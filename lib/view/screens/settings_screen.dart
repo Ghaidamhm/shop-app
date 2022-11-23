@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
             height: 20,
           ),
           TextUtiles(
-            text: 'GENERAL',
+            text: 'GENERAL'.tr,
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Get.isDarkMode ? mainColor : mainColor,
