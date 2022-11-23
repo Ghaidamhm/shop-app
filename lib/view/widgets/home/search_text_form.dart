@@ -1,23 +1,42 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ushop_app/logic/controllers/product_controller.dart';
 
 class SearchFormText extends StatelessWidget {
-  const SearchFormText({super.key});
-
+  
+   SearchFormText({super.key});
+final controller=Get.find<ProductController>();
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return GetBuilder<ProductController>(builder: (_)=>TextField(
+      
+      controller:controller.searchTextController,
       cursorColor: Colors.black,
       keyboardType: TextInputType.text,
+      onChanged: (searchName) {
+        controller.addSearchToList(searchName);
+      },
       decoration: InputDecoration(
-        fillColor: Colors.white,
+        fillColor:Get.isDarkMode? Colors.black:Colors.white,
         focusColor: Colors.red,
         prefixIcon: Icon(
           Icons.search,
           color: Colors.grey,
         ),
-        hintText: "Search you're looking for ...",
+        suffixIcon: 
+        controller.searchTextController.text.isNotEmpty?
+        IconButton(
+          onPressed: () {
+            controller.clearSearch();
+          },
+          icon: Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
+        ): null,
+        hintText: "Search By name & price ...",
         hintStyle: TextStyle(
             color: Colors.black45, fontSize: 14, fontWeight: FontWeight.w500),
         filled: true,
@@ -29,18 +48,15 @@ class SearchFormText extends StatelessWidget {
           borderSide: BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(10),
         ),
-
-         errorBorder: OutlineInputBorder(
+        errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(10),
-      ),
-
-      focusedErrorBorder: OutlineInputBorder(
+        ),
+        focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(10),
+        ),
       ),
-      
-      ), 
-    );
+    ),);
   }
 }

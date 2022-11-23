@@ -3,69 +3,68 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ushop_app/logic/controllers/cart_controller.dart';
+import 'package:ushop_app/logic/controllers/category_controller.dart';
 import 'package:ushop_app/logic/controllers/product_controller.dart';
 import 'package:ushop_app/models/product_models.dart';
 import 'package:ushop_app/utils/theme.dart';
 import 'package:ushop_app/view/screens/product_details_screen.dart';
 import 'package:ushop_app/view/widgets/text_utiles.dart';
 
-class CardItems extends StatelessWidget {
-  CardItems({super.key});
+class CategoryItems extends StatelessWidget {
+  CategoryItems({super.key, required this.categoryTitle});
 
   final controller = Get.find<ProductController>();
+ final categoryController = Get.find<CategoryController>();
+final String categoryTitle;
+
+
+
   final cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     // هنا عشان يعطيني مربعات الايتمز اللي بتطلع بالمتجر
-    return Obx(() {
-      if (controller.isLoadding.value) {
-        return Center(
+    return Scaffold(
+      backgroundColor: context.theme.backgroundColor,
+      appBar: AppBar(
+        title: Text(categoryTitle),
+        centerTitle: true,
+        backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
+      ),
+      body: Obx((){
+        if(categoryController.isAllCategory.value){
+          return Center(
           child: CircularProgressIndicator(
             color: mainColor,
           ),
         );
-      } else {
-        return Expanded(
-          child:
-        controller.searchList.isEmpty && controller.searchTextController.text.isNotEmpty?
-    Get.isDarkMode?  Image.asset('assets/images/search_empty_dark.png') :Image.asset('assets/images/search_empry_light.png'):
-           GridView.builder(
-              itemCount: controller.searchList.isEmpty?controller.productsList.length:controller.searchList.length,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  childAspectRatio: 0.8,
-                  mainAxisSpacing: 9.0,
-                  crossAxisSpacing: 6,
-                  maxCrossAxisExtent: 200),
-              itemBuilder: (context, index) {
-                if (controller.searchList.isEmpty) {
-                  return buildCardItems(
-                      image: controller.productsList[index].image,
-                      price: controller.productsList[index].price,
-                      rate: controller.productsList[index].rating.rate,
-                      productId: controller.productsList[index].id,
-                      productModels: controller.productsList[index],
-                      onTap: () {
-                        Get.to(() => ProductDetailsScreen(
-                              productModels: controller.productsList[index],
-                            ));
-                      });
-                } else {
-                  return buildCardItems(
-                      image: controller.searchList[index].image,
-                      price: controller.searchList[index].price,
-                      rate: controller.searchList[index].rating.rate,
-                      productId: controller.searchList[index].id,
-                      productModels: controller.searchList[index],
-                      onTap: () {
-                        Get.to(() => ProductDetailsScreen(
-                              productModels: controller.searchList[index],
-                            ));
-                      });
-                }
-              }),
-        );
+      }else{
+return  GridView.builder(
+                    itemCount: 
+                         categoryController.categoryList.length,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        childAspectRatio: 0.8,
+                        mainAxisSpacing: 9.0,
+                        crossAxisSpacing: 6,
+                        maxCrossAxisExtent: 200),
+                    itemBuilder: (context, index) {
+                      return buildCardItems(
+                          image: categoryController.categoryList[index].image,
+                          price: categoryController.categoryList[index].price,
+                          rate: categoryController.categoryList[index].rating.rate,
+                          productId: categoryController.categoryList[index].id,
+                          productModels: categoryController.categoryList[index],
+                          onTap: () {
+                            Get.to(() => ProductDetailsScreen(
+                                  productModels: categoryController.categoryList[index],
+                                ));
+                          });
+                    }
+                    );
       }
-    });
+      }
+      
+      ),
+    );
   }
 
   Widget buildCardItems({

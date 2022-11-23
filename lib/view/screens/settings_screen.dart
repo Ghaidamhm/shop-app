@@ -15,11 +15,11 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: context.theme.backgroundColor,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center  ,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
               onPressed: () {
-               ThemeController().changesTheme();
+                ThemeController().changesTheme();
               },
               child: Text(
                 'Dark Mode',
@@ -28,57 +28,51 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
+            GetBuilder<AuthController>(builder: (controller) {
+              return TextButton(
+                onPressed: () {
+                  // here to give logout choice a styling dialog
 
-
-              GetBuilder<AuthController>(
-                builder: (controller) {
-                  return TextButton(
-                  onPressed: () {
-                    // here to give logout choice a styling dialog
-
-Get.defaultDialog(
-  title: "You Logged Out From The App" ,
-  titleStyle: TextStyle(
-    fontSize: 18,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-  ),
-  middleText: "Need LogOut ?",
-  middleTextStyle:  TextStyle(
-    fontSize: 18,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-  ), 
-  backgroundColor: Color.fromARGB(255, 189, 188, 188),
-  radius: 10,
-  textCancel: "No",
-  cancelTextColor: Colors.white,
-  textConfirm: "Yes",
-  confirmTextColor: Colors.white,
-  onCancel: () {
-    Get.back();
-  },
-  onConfirm: () {
-    controller.signOutFromApp();
-
-  },
-  buttonColor: Get.isDarkMode? mainColor : mainColor,
-
-);                    
-// controller.signOutFromApp();
-                    
-                  },
-                  child: Text(
-                    'LogOut',
-                    style: TextStyle(
-                      color: Get.isDarkMode ? Colors.white : Colors.black,
+                  Get.defaultDialog(
+                    title: "You Logged Out From The App",
+                    titleStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
+                    middleText: "Need LogOut ?",
+                    middleTextStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    backgroundColor: Color.fromARGB(255, 189, 188, 188),
+                    radius: 10,
+                    textCancel: "No",
+                    cancelTextColor: Colors.white,
+                    textConfirm: "Yes",
+                    confirmTextColor: Colors.white,
+                    onCancel: () {
+                      Get.back();
+                    },
+                    onConfirm: () {
+                      controller.signOutFromApp();
+                    },
+                    buttonColor: Get.isDarkMode ? mainColor : mainColor,
+                  );
+// controller.signOutFromApp();
+                },
+                child: Text(
+                  'LogOut',
+                  style: TextStyle(
+                    color: Get.isDarkMode ? Colors.white : Colors.black,
                   ),
-            );
-                }
-              ),
+                ),
+              );
+            }),
           ],
         ),
       ),

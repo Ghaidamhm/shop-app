@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:ushop_app/logic/bindings/auth_bindings.dart';
 import 'package:ushop_app/logic/bindings/main_binding.dart';
 import 'package:ushop_app/logic/bindings/product_binding.dart';
+import 'package:ushop_app/logic/controllers/product_controller.dart';
 import 'package:ushop_app/view/screens/auth/forgot_password_screen.dart';
 import 'package:ushop_app/view/screens/auth/login_screen.dart';
 import 'package:ushop_app/view/screens/auth/signup_screen.dart';
+import 'package:ushop_app/view/screens/cart_screen.dart';
 import 'package:ushop_app/view/screens/main_screen.dart';
 import 'package:ushop_app/view/screens/welcome_screen.dart';
 
@@ -33,12 +35,14 @@ class AppRoutes {
         name: Routes.ForgetPasswordScreen,
         page: () => ForgetPasswordScreen(),
         binding: AuthBinding()),
-
-          GetPage(
+    GetPage(
         name: Routes.mainScreen,
         page: () => MainScreen(),
-        bindings: [AuthBinding(), MainBinding(),ProductBindings()]
-        ),
+        bindings: [AuthBinding(), MainBinding(), ProductBindings()]),
+    GetPage(name: Routes.cartScreen, page: () => CartScreen(), bindings: [
+      AuthBinding(),
+      ProductBindings(),
+    ]),
   ];
 }
 
@@ -48,6 +52,6 @@ class Routes {
   static const LoginScreen = '/LoginScreen';
   static const SignUpScreen = '/SignUpScreen';
   static const ForgetPasswordScreen = '/ForgetPasswordScreen';
-    static const mainScreen = '/mainScreen';
-
+  static const mainScreen = '/mainScreen';
+  static const cartScreen = '/cartScreen';
 }

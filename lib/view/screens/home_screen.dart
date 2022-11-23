@@ -8,7 +8,7 @@ import 'package:ushop_app/view/widgets/home/search_text_form.dart';
 import 'package:ushop_app/view/widgets/text_utiles.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +31,10 @@ class HomeScreen extends StatelessWidget {
 
             // عشان اخلي الكلام مو لاصق على حدود اليسار
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding:  EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children:  [
                   TextUtiles(
                       text: "Find Your",
                       fontSize: 25,
@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20),
+            padding:  EdgeInsets.only(left: 20),
             child: Align(
               alignment: Alignment.topLeft,
               child: TextUtiles(
