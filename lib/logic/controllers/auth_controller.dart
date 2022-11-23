@@ -10,12 +10,29 @@ class AuthController extends GetxController {
   bool isVisibility = false;
 
   bool isCheckBox = false;
-  var displayUserName = '';
+  var displayUserName = ''.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
   var googleSignIn = GoogleSignIn();
-  var displayUserPhoto = '';
-  var isSignedIn=false;
-final GetStorage authBox=GetStorage();
+  var displayUserPhoto = ''.obs;
+  var displayUserEmail = ''.obs;
+  var isSignedIn = false;
+  final GetStorage authBox = GetStorage();
+
+  User? get userProfile => auth.currentUser;
+
+  @override
+  void onInit() {
+    displayUserName.value =
+        (userProfile != null ? userProfile!.displayName : "")!;
+
+    displayUserPhoto.value =
+        (userProfile != null ? userProfile!.photoURL : "")!;
+
+    displayUserEmail.value =
+        (userProfile != null ? userProfile!.email : "")!;
+
+    super.onInit();
+  }
 
   void visibility() {
     isVisibility = !isVisibility;
@@ -38,7 +55,7 @@ final GetStorage authBox=GetStorage();
       await auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        displayUserName = name;
+        displayUserName.value = name;
         auth.currentUser!.updateDisplayName(name);
       });
 
@@ -83,11 +100,11 @@ final GetStorage authBox=GetStorage();
             password: password,
             // اذا سويت لوق ان يطلب من الفاير بيس ال auth
           )
-          .then((value) => displayUserName = auth.currentUser!.displayName!);
+          .then((value) =>
+              displayUserName.value = auth.currentUser!.displayName!);
 
-
-           isSignedIn=true;
-           authBox.write("auth", isSignedIn);
+      isSignedIn = true;
+      authBox.write("auth", isSignedIn);
 
       update();
 
@@ -118,11 +135,20 @@ final GetStorage authBox=GetStorage();
 
   void googleSignUpApp() async {
     try {
-      final GoogleSignInAccount ? googleUser = await googleSignIn.signIn();
-      displayUserName = googleUser!.displayName!;
-      displayUserPhoto = googleUser.photoUrl!;
-           isSignedIn=true;
-           authBox.write("auth", isSignedIn);
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      displayUserName.value = googleUser!.displayName!;
+      displayUserPhoto.value = googleUser.photoUrl!;
+      displayUserEmail.value = googleUser.email;
+
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+      );
+      await auth.signInWithCredential(credential);
+      isSignedIn = true;
+      authBox.write("auth", isSignedIn);
 
       update();
       Get.offNamed(Routes.mainScreen);
@@ -133,8 +159,6 @@ final GetStorage authBox=GetStorage();
           colorText: Colors.white);
     }
   }
-
-  void faceBookSignUpApp() {}
 
   void resetPassword(String email) async {
     try {
@@ -166,29 +190,21 @@ final GetStorage authBox=GetStorage();
     }
   }
 
-  
-  
   void signOutFromApp() async {
     try {
-
-
       await auth.signOut();
-      await googleSignIn.signOut(); 
-      displayUserName='';
-      displayUserPhoto='';
+      await googleSignIn.signOut();
+      displayUserName.value = '';
+      displayUserPhoto.value = '';
+      displayUserEmail.value = '';
+      isSignedIn = false;
 
-                 isSignedIn=false;
-
-                 authBox.remove("auth");
+      authBox.remove("auth");
 
       update();
 
-
       Get.offNamed(Routes.WelcomeScreen);
-
-    } 
-    
-    catch (error) {
+    } catch (error) {
       Get.snackbar('Error!', error.toString(),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
